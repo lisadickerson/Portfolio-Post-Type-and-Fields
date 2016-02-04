@@ -95,7 +95,7 @@ __Code Sample:__ _Custom field code you will need to edit into your theme for th
 
 
 I started this plugin as a custom functions plugin for my site only, to reduce my dependency on themes or plugins to maintain my portfolio.
-It is also a way for me to dive deeper into my understanding of custom post types and their arguments and plugins development by __and learn by doing__.
+It is also a way for me to dive deeper into my understanding of custom post types and their arguments and plugins development  __and learn by doing__.
 
 
 ### Are all the bugs worked out?
