@@ -49,7 +49,7 @@ It is also a way for me to dive deeper into my understanding of custom post type
 
 
 = Are all the bugs worked out?
-**No** all the bug are not worked out. I created the post type to use the site wide categories and tags. It doesn&#39;t quite work like I expected it too. I also need to re-write the slug to pull a more SEO friendly title.
+**No** all the bug are not worked out. I created the post type to use the site wide categories and tags. It doesn&#39;t quite work like I expected it too. ~~I also need to re-write the slug to pull a more SEO friendly title.~~
 = Are there other plugins that create a portfolio post type?
 
 
@@ -65,8 +65,22 @@ Yes take a look at two great professional plugins :smile_cat:
 4. Custom Developer roles,Url and WorkFlow Example in fields in Edit
 5. Front end display of custom fields.
 
+
 == Changelog ==
 
+== 1.1 ==
+* Re-write slug on custom post type:
+Exchange the _underscore in the slug for`portfolio-item`
+*  Re-write archive:
+Change archive slug from bool to string:plural `portfolio-items`
+*  Change admin dash image to WordPress Dashicon.
 
+== Upgrade Notice ==
+== 1.1 ==
+*	Re-write slug on custom post type:
+Current slug is not SEO friendly. Google will not read an underscore as a space between words.You will need to update your permalink's by resaving in the dash admin.The change in the portfolio slug may also require you to update your theme templates.
+For example in my case: `single-portfolio_item.php` simply needed to be re-named `single-portfolio.php`
 
+*  Re-write archive:
+Change archive slug from bool to string:plural `portfolio-items` .Update your permalink's by resaving in the dash admin.
 

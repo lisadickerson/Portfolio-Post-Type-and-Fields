@@ -75,15 +75,16 @@ function register_cpt_portfolio_item() {
     'exclude_from_search' => false,
     'show_ui' => true,
     'menu_position' => 4,
-    'menu_icon' =>get_stylesheet_directory_uri()  . '/images/icon_wp_nav.png',
-    'has_archive' => true,
+    //'menu_icon' =>get_stylesheet_directory_uri()  . '/images/icon_wp_nav.png',
+    'menu_icon' =>'dashicons-portfolio',
+    //'has_archive' => true,
+    'has_archive' => 'portfolio-items',
     'query_var' => true,
     'can_export' => true,
     'rewrite' => true,
     'capability_type' => 'post',
-	// rewrite:gets rid of the _ in the slug which google wont read as a space. bad for seo
-    // but it breaks the page link that exist so far
-	//'rewrite' => array('slug' => 'portfolio'),
+	// rewrite:gets rid of the _ in the slug which google won't read as a space. Bad for seo
+	'rewrite' => array('slug' => 'portfolio-item'),
     );
 
 	/*--------------------------------------------*
@@ -201,6 +202,27 @@ function register_cpt_portfolio_item() {
     register_post_type( 'portfolio_item', $args );
     }//close function
 
+/*--------------------------------------------*
+* Close Custom post type
+*--------------------------------------------*/
+
+
+/*--------------------------------------------*
+* TROUBLE SHOOTING ERRORS:
+ * using search bar categories or words leaves the top menu in place and visible
+ * selecting categories in side bar removes top menu links
+ * adding nav_menu_item to the below function leaves the menu in place
+ * but place the menu item post ids in the side bar as errors ?
+ *
+ * It was working fine in plugin test site?
+*--------------------------------------------*/
+
+/*--------------------------------------------*
+* just 3 diff way to add custom post type taxonomy to categories ,tags and widgets
+ * not working it resets the running query post and adds the taxonomy but it
+ * wont work with out adding the nav_menu_items and if you do that
+ *  it breaks the nav any time you use a category link
+*--------------------------------------------*/
 
 add_filter('pre_get_posts', 'query_post_type');
 function query_post_type($query) {
@@ -215,17 +237,6 @@ function query_post_type($query) {
 	}
 }
 
-
-/*--------------------------------------------*
-* TROUBLE SHOOTING ERRORS:
- * using search bar categories or words leaves the top menu in place and visible
- * selecting categories in side bar removes top menu links
- * adding nav_menu_item to the below function leaves the menu in place
- * but place the menu item post ids in the side bar as errors ?
- *
- * It was working fine in plugin test site?
-*--------------------------------------------*/
-
 function add_custom_types_to_tax( $query ) {
 	if( is_category() || is_tag() && empty( $query->query_vars['suppress_filters'] ) ) {
 
@@ -237,43 +248,8 @@ function add_custom_types_to_tax( $query ) {
 		return $query;
 	}
 }
+
 add_filter( 'pre_get_posts', 'add_custom_types_to_tax' );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//'nav_menu_item',add custom post type support for category widget http://premium.wpmudev.org/blog/add-custom-post-types-to-tags-and-categories-in-wordpress/
-/*
-function add_custom_types_to_tax( $query ) {
-    if( is_category() || is_tag() && empty( $query->query_vars['suppress_filters'] ) ) {
-
-// Get all your post types
-       // $post_types = get_post_types();
-        $post_types = array( 'post', 'portfolio_item','nav_menu_item' );
-
-        $query->set( 'post_type', $post_types );
-        return $query;
-    }
-}
-add_filter( 'pre_get_posts', 'add_custom_types_to_tax' );
-*/
-
-// tags
 
 function post_type_tags_fix($request) {
     if ( isset($request['tag']) && !isset($request['post_type']) )
@@ -281,6 +257,8 @@ function post_type_tags_fix($request) {
     return $request;
 }
 add_filter('request', 'post_type_tags_fix');
+
+
 
 
 /*--------------------------------------------*
